@@ -27,8 +27,8 @@ This is a lightweight, homemade framework for building HTTP applications in Type
 Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd investigations
+git clone git@github.com:DanielRamosAcosta/framework.git
+cd framework
 ```
 
 Install dependencies:
