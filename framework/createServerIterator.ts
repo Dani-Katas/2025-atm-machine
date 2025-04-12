@@ -6,9 +6,7 @@ type RequestPair = {
   res: ServerResponse;
 };
 
-export function createServerIterator(
-  server: http.Server,
-): AsyncIterable<RequestPair> {
+export function createServerIterator(server: http.Server): AsyncIterable<RequestPair> {
   const requests: RequestPair[] = [];
   const resolvers: ((value: RequestPair) => void)[] = [];
 

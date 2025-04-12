@@ -39,11 +39,7 @@ export const GetEventsController: Controller<
   requestBody: RequestBody,
   responseBody: ResponseBody,
   handler: async (data) => {
-    console.log(
-      "[Controller] GetEvents:",
-      data.params.offset,
-      data.params.limit,
-    );
+    console.log("[Controller] GetEvents:", data.params.offset, data.params.limit);
 
     return {
       status: HTTPCode.OK,

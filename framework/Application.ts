@@ -25,18 +25,13 @@ export class Application {
     if (controller) {
       const match = controller.pattern.exec(request.url);
       const groups = match.pathname.groups;
-      const params = Object.fromEntries(
-        new URLSearchParams(match.search.input),
-      );
-      const isQuery =
-        request.method === HTTPMethod.GET || request.method === HTTPMethod.HEAD;
+      const params = Object.fromEntries(new URLSearchParams(match.search.input));
+      const isQuery = request.method === HTTPMethod.GET || request.method === HTTPMethod.HEAD;
 
       const response = await controller.handler({
         path: groups,
         params: controller.params.parse(params),
-        body: isQuery
-          ? undefined
-          : controller.requestBody.parse(await request.json()),
+        body: isQuery ? undefined : controller.requestBody.parse(await request.json()),
       });
 
       return this.createResponse(response.status, response.json);
@@ -45,11 +40,18 @@ export class Application {
     return this.createResponse(HTTPCode.NOT_FOUND, {});
   }
 
-  handle = (request: Request): Promise<Response> =>
-    this.unsafeHandle(request)
-      .catch(this.handleZodError)
-      .catch(this.handleSyntaxError)
-      .catch(this.handleUnknownError);
+  fetch = (...params: Parameters<typeof fetch>): Promise<Response> => {
+    const firstParam = params[0];
+
+    if (firstParam instanceof Request) {
+      return this.unsafeHandle(firstParam)
+        .catch(this.handleZodError)
+        .catch(this.handleSyntaxError)
+        .catch(this.handleUnknownError);
+    }
+
+    throw new Error("Only Request is supported as first parameter (for now)");
+  };
 
   private handleZodError = (error: unknown) => {
     if (error instanceof ZodError) {

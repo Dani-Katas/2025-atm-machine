@@ -29,7 +29,7 @@ export const PostEventController: Controller<
     console.log("[Controller] PostEvent:", data.body.id, data.body.id);
 
     return {
-      status: HTTPCode.OK,
+      status: HTTPCode.CREATED,
       json: undefined,
     };
   },

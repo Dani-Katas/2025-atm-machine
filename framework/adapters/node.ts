@@ -3,10 +3,7 @@ import type { Application } from "../Application.ts";
 import { HTTPMethod } from "../HTTPMethod.ts";
 import { createServerIterator } from "../createServerIterator.ts";
 
-export async function serve({
-  app,
-  server,
-}: { app: Application; server: Server }) {
+export async function serve({ app, server }: { app: Application; server: Server }) {
   for await (const { req, res } of createServerIterator(server)) {
     const url = req.url;
     const method = req.method;
@@ -19,12 +16,9 @@ export async function serve({
       duplex: "half",
     });
 
-    const response = await app.handle(request);
+    const response = await app.fetch(request);
 
-    res.writeHead(
-      response.status,
-      Object.fromEntries(response.headers.entries()),
-    );
+    res.writeHead(response.status, Object.fromEntries(response.headers.entries()));
     res.end(await response.text());
   }
 }

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/main.ts",
     "start:dev": "node --watch src/main.ts",
+    "test": "node --test --import ./test/setup.ts",
     "check": "biome check",
     "check:fix": "biome check --fix",
     "check:ci": "biome ci"
@@ -15,7 +16,9 @@
   "description": "",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "^22.14.1"
+    "@types/node": "^22.14.1",
+    "expect": "^29.7.0",
+    "ky": "^1.8.0"
   },
   "dependencies": {
     "zod": "^3.24.2"
