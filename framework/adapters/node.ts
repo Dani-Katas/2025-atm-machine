@@ -1,4 +1,6 @@
 import type { IncomingHttpHeaders, IncomingMessage, Server } from "node:http";
+import { Readable } from "node:stream";
+import type { ReadableStream as WebReadableStream } from "node:stream/web";
 import type { Application } from "../Application.ts";
 import { HTTPMethod } from "../HTTPMethod.ts";
 import { createServerIterator } from "../createServerIterator.ts";
@@ -18,8 +20,12 @@ export async function serve({ app, server }: { app: Application; server: Server 
 
     const response = await app.fetch(request);
 
-    res.writeHead(response.status, Object.fromEntries(response.headers.entries()));
-    res.end(await response.text());
+    const body = response.body as unknown as WebReadableStream<unknown> | null;
+    if (body) {
+      Readable.fromWeb(body).pipe(res);
+    } else {
+      res.end();
+    }
   }
 }
 
