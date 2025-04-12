@@ -20,7 +20,7 @@ This is a lightweight, homemade framework for building HTTP applications in Type
 
 ### Prerequisites
 
-- Node.js (v18 or later) / Deno / Bun
+- Node.js (v24 or later) / Deno / Bun
 - TypeScript
 
 ### Installation
