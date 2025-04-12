@@ -6,7 +6,7 @@ import { app } from "../src/app.ts";
 
 describe("API", () => {
   const client = ky.extend({
-    prefixUrl: "http://localhost:3000",
+    prefixUrl: "http://localhost",
     fetch: app.fetch,
   });
 
