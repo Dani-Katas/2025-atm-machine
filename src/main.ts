@@ -1,11 +1,8 @@
-import http from "node:http";
-import { serve } from "../framework/adapters/node.ts";
+import { createServer } from "node:http";
+import { type ServerAdapterRequestHandler, createServerAdapter } from "@whatwg-node/server";
 import { app } from "./app.ts";
 
-const server = http.createServer();
+const server = createServer(
+  createServerAdapter(app.fetch as unknown as ServerAdapterRequestHandler<unknown>),
+);
 server.listen(3000);
-
-await serve({
-  app,
-  server,
-});

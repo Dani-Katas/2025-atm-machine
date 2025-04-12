@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { Controller } from "../../../framework/Controller.ts";
-import { HTTPCode } from "../../../framework/HTTPCode.ts";
 import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
+import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
 
 const Params = z.object({});
 
@@ -29,7 +29,7 @@ export const GetEventController: Controller<
     console.log("[Controller] GetEvent:", data.path.id);
 
     return {
-      status: HTTPCode.OK,
+      status: HTTPStatus.OK,
       json: {
         id: "fd61734e-1ee9-41ac-8b0b-c7f8794a5981",
         name: "First Event",

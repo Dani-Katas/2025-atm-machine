@@ -1,6 +1,6 @@
-import type { HTTPCode } from "./HTTPCode.ts";
+import type { HTTPStatus } from "./HTTPStatus.ts";
 
 export type HTTPResponse<T> = {
-  status: HTTPCode;
+  status: HTTPStatus;
   json: T;
 };

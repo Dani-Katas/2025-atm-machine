@@ -1,8 +1,8 @@
 import { URLPattern } from "node:url";
 import { ZodError } from "zod";
 import type { AnyController, AnyControllerWithPattern } from "./Controller.ts";
-import { HTTPCode } from "./HTTPCode.ts";
 import { HTTPMethod } from "./HTTPMethod.ts";
+import { HTTPStatus } from "./HTTPStatus.ts";
 
 export class Application {
   private readonly controllers: AnyControllerWithPattern[];
@@ -37,13 +37,13 @@ export class Application {
       return this.createResponse(response.status, response.json);
     }
 
-    return this.createResponse(HTTPCode.NOT_FOUND, {});
+    return this.createResponse(HTTPStatus.NOT_FOUND, {});
   }
 
   fetch = (...params: Parameters<typeof fetch>): Promise<Response> => {
     const [request] = params;
 
-    if (request instanceof Request) {
+    if (isRequest(request)) {
       return this.unsafeHandle(request)
         .catch(this.handleZodError)
         .catch(this.handleSyntaxError)
@@ -55,14 +55,14 @@ export class Application {
 
   private handleZodError = (error: unknown) => {
     if (error instanceof ZodError) {
-      return this.createResponse(HTTPCode.BAD_REQUEST, { error });
+      return this.createResponse(HTTPStatus.BAD_REQUEST, { error });
     }
     throw error;
   };
 
   private handleSyntaxError = (error: unknown) => {
     if (error instanceof SyntaxError) {
-      return this.createResponse(HTTPCode.BAD_REQUEST, {
+      return this.createResponse(HTTPStatus.BAD_REQUEST, {
         message: error.message,
       });
     }
@@ -71,13 +71,17 @@ export class Application {
 
   private handleUnknownError = (error: unknown) => {
     console.error(error);
-    return this.createResponse(HTTPCode.INTERNAL_SERVER_ERROR, {});
+    return this.createResponse(HTTPStatus.INTERNAL_SERVER_ERROR, {});
   };
 
-  private createResponse(status: HTTPCode, json: unknown) {
+  private createResponse(status: HTTPStatus, json: unknown) {
     return new Response(JSON.stringify(json), {
       status,
       headers: { "Content-Type": "application/json" },
     });
   }
+}
+
+function isRequest(input: unknown): input is Request {
+  return input != null && typeof input === "object" && "url" in input;
 }

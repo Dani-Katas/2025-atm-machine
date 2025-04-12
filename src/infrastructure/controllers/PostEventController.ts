@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { Controller } from "../../../framework/Controller.ts";
-import { HTTPCode } from "../../../framework/HTTPCode.ts";
 import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
+import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
 
 const Params = z.object({});
 
@@ -29,7 +29,7 @@ export const PostEventController: Controller<
     console.log("[Controller] PostEvent:", data.body.id, data.body.id);
 
     return {
-      status: HTTPCode.CREATED,
+      status: HTTPStatus.CREATED,
       json: undefined,
     };
   },

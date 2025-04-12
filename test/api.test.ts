@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import { expect } from "expect";
 import ky from "ky";
-import { HTTPCode } from "../framework/HTTPCode.ts";
+import { HTTPStatus } from "../framework/HTTPStatus.ts";
 import { app } from "../src/app.ts";
 
 describe("API", () => {
@@ -18,7 +18,7 @@ describe("API", () => {
       },
     });
 
-    expect(response).hasStatus(HTTPCode.CREATED);
+    expect(response).hasStatus(HTTPStatus.CREATED);
   });
 
   it("returns error when posting wrong events", async () => {
@@ -29,13 +29,13 @@ describe("API", () => {
       },
     });
 
-    await expect(promise).rejects.hasStatus(HTTPCode.BAD_REQUEST);
+    await expect(promise).rejects.hasStatus(HTTPStatus.BAD_REQUEST);
   });
 
   it("returns an event", async () => {
     const response = await client.get("api/events/fd61734e-1ee9-41ac-8b0b-c7f8794a5981");
 
-    expect(response).hasStatus(HTTPCode.OK);
+    expect(response).hasStatus(HTTPStatus.OK);
     await expect(response).hasBody({
       id: "fd61734e-1ee9-41ac-8b0b-c7f8794a5981",
       name: "First Event",
@@ -45,7 +45,7 @@ describe("API", () => {
   it("returns the response for listing events", async () => {
     const response = await client.get("api/events");
 
-    expect(response).hasStatus(HTTPCode.OK);
+    expect(response).hasStatus(HTTPStatus.OK);
     await expect(response).hasBody([
       {
         id: "fd61734e-1ee9-41ac-8b0b-c7f8794a5981",
