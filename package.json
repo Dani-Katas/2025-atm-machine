@@ -1,0 +1,23 @@
+{
+  "name": "investigations",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.ts",
+    "start:dev": "node --watch src/main.ts",
+    "check": "biome check",
+    "check:fix": "biome check --fix",
+    "check:ci": "biome ci"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.14.1"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  }
+}
