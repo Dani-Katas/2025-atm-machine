@@ -1,11 +1,10 @@
-import type { URLPattern } from "node:url";
 import type { TypeOf, ZodType } from "zod";
 import type { ExtractParams } from "./ExtractParams.ts";
 import type { HTTPMethod } from "./HTTPMethod.ts";
 import type { HTTPResponse } from "./HTTPResponse.ts";
 
 export type Controller<
-  Path extends string | unknown,
+  Path extends string,
   ParamsType extends ZodType,
   RequestBody extends ZodType,
   ResponseBody extends ZodType,
@@ -23,6 +22,6 @@ export type Controller<
   }) => Promise<HTTPResponse<TypeOf<ResponseBody>>>;
 };
 
-export type AnyController = Controller<unknown, ZodType, ZodType, ZodType>;
+export type AnyController = Controller<string, ZodType, ZodType, ZodType>;
 
 export type AnyControllerWithPattern = AnyController & { pattern: URLPattern };

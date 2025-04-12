@@ -1,4 +1,3 @@
-import { URLPattern } from "node:url";
 import { ZodError } from "zod";
 import type { AnyController, AnyControllerWithPattern } from "./Controller.ts";
 import { HTTPMethod } from "./HTTPMethod.ts";
@@ -22,14 +21,15 @@ export class Application {
       .filter((c) => c.pattern.test(request.url))
       .at(0);
 
-    if (controller) {
-      const match = controller.pattern.exec(request.url);
+    const match = controller?.pattern?.exec(request.url);
+
+    if (controller && match) {
       const groups = match.pathname.groups;
       const params = Object.fromEntries(new URLSearchParams(match.search.input));
       const isQuery = request.method === HTTPMethod.GET || request.method === HTTPMethod.HEAD;
 
       const response = await controller.handler({
-        path: groups,
+        path: groups as Record<string, never>,
         params: controller.params.parse(params),
         body: isQuery ? undefined : controller.requestBody.parse(await request.json()),
       });
