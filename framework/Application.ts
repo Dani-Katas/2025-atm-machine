@@ -41,10 +41,10 @@ export class Application {
   }
 
   fetch = (...params: Parameters<typeof fetch>): Promise<Response> => {
-    const firstParam = params[0];
+    const [request] = params;
 
-    if (firstParam instanceof Request) {
-      return this.unsafeHandle(firstParam)
+    if (request instanceof Request) {
+      return this.unsafeHandle(request)
         .catch(this.handleZodError)
         .catch(this.handleSyntaxError)
         .catch(this.handleUnknownError);
