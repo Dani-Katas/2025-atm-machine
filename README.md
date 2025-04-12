@@ -7,20 +7,20 @@ This is a lightweight, homemade framework for building HTTP applications in Type
 - **Controller-based architecture**: Define controllers with strict type validation using `zod`.
 - **Request and response handling**: Built-in support for parsing parameters, request bodies, and generating structured responses.
 - **Error handling**: Graceful handling of validation errors, syntax errors, and unknown errors.
-- **Node.js adapter**: Easily integrate with Node.js HTTP servers.
+- **Cross-platform support**: Works with Node.js, Deno, and Bun.
 
 ## Project Structure
 
 - **`framework/`**: Core framework components, including `Application`, `Controller`, and HTTP utilities.
 - **`src/infrastructure/controllers/`**: Example controllers for handling HTTP routes.
 - **`src/app.ts`**: Application instance with registered controllers.
-- **`src/main.ts`**: Entry point for starting the server.
+- **`src/`**: Entry points for different runtimes (`node.ts`, `deno.ts`, `bun.ts`).
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or later)
+- Node.js (v18 or later) / Deno / Bun
 - TypeScript
 
 ### Installation
@@ -32,7 +32,7 @@ git clone git@github.com:DanielRamosAcosta/framework.git
 cd framework
 ```
 
-Install dependencies:
+Install dependencies (for Node.js or Bun):
 
 ```bash
 npm install
@@ -82,8 +82,10 @@ import { PostEventController } from "./infrastructure/controllers/PostEventContr
 export const app = new Application([GetEventController, GetEventsController, PostEventController]);
 ```
 
-3. **Start the Server**: Use the Node.js adapter to serve the application in `src/main.ts`.
+3. **Start the Server**: Use the appropriate entry point for your runtime.
 
+#### Node.js
+Run the server using `src/node.ts`:
 ```typescript
 import { createServer } from "node:http";
 import { type ServerAdapterRequestHandler, createServerAdapter } from "@whatwg-node/server";
@@ -92,16 +94,41 @@ import { app } from "./app.ts";
 const server = createServer(
   createServerAdapter(app.fetch as unknown as ServerAdapterRequestHandler<unknown>),
 );
-server.listen(3000);
+server.listen(8000);
 ```
 
 Run the application:
-
 ```bash
-npx ts-node src/main.ts
+npx ts-node src/node.ts
 ```
 
-Access the API at `http://localhost:3000`.
+#### Deno
+Run the server using `src/deno.ts`:
+```typescript
+import { app } from "./app.ts";
+
+Deno.serve(app.fetch);
+```
+
+Run the application:
+```bash
+deno run --allow-net src/deno.ts
+```
+
+#### Bun
+Run the server using `src/bun.ts`:
+```typescript
+import { app } from "./app.ts";
+
+Bun.serve({ fetch: app.fetch });
+```
+
+Run the application:
+```bash
+bun src/bun.ts
+```
+
+Access the API at `http://localhost:8000`.
 
 ## Example Controllers
 
@@ -122,10 +149,6 @@ Define routes, HTTP methods, and validation schemas using the `Controller` type.
 ### `HTTPStatus` and `HTTPMethod`
 
 Constants for HTTP status codes and methods.
-
-### `adapters/node.ts`
-
-Adapter for integrating the framework with Node.js HTTP servers.
 
 ## Error Handling
 
