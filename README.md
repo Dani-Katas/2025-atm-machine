@@ -13,7 +13,8 @@ This is a lightweight, homemade framework for building HTTP applications in Type
 
 - **`framework/`**: Core framework components, including `Application`, `Controller`, and HTTP utilities.
 - **`src/infrastructure/controllers/`**: Example controllers for handling HTTP routes.
-- **`index.ts`**: Entry point for the application.
+- **`src/app.ts`**: Application instance with registered controllers.
+- **`src/main.ts`**: Entry point for starting the server.
 
 ## Getting Started
 
@@ -44,8 +45,9 @@ npm install
 Example: `GetEventController.ts`
 ```typescript
 import { z } from "zod";
-import { HTTPCode, HTTPMethod } from "../../../framework/HTTPCode.ts";
+import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
 import type { Controller } from "../../../framework/Controller.ts";
+import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
 
 const Params = z.object({});
 const RequestBody = z.undefined();
@@ -62,38 +64,41 @@ export const GetEventController: Controller<...> = {
   responseBody: ResponseBody,
   handler: async (data) => {
     return {
-      status: HTTPCode.OK,
+      status: HTTPStatus.OK,
       json: { id: "example-id", name: "Example Event" },
     };
   },
 };
 ```
 
-2. **Register Controllers**: Add controllers to the `Application` instance in `index.ts`.
+2. **Register Controllers**: Add controllers to the `Application` instance in `src/app.ts`.
 
 ```typescript
-import { Application } from "./framework/Application.ts";
-import { GetEventController } from "./src/infrastructure/controllers/GetEventController.ts";
+import { Application } from "../framework/Application.ts";
+import { GetEventController } from "./infrastructure/controllers/GetEventController.ts";
+import { GetEventsController } from "./infrastructure/controllers/GetEventsController.ts";
+import { PostEventController } from "./infrastructure/controllers/PostEventController.ts";
 
-const app = new Application([GetEventController]);
+export const app = new Application([GetEventController, GetEventsController, PostEventController]);
 ```
 
-3. **Start the Server**: Use the Node.js adapter to serve the application.
+3. **Start the Server**: Use the Node.js adapter to serve the application in `src/main.ts`.
 
 ```typescript
-import http from "node:http";
-import { serve } from "./framework/adapters/node.ts";
+import { createServer } from "node:http";
+import { type ServerAdapterRequestHandler, createServerAdapter } from "@whatwg-node/server";
+import { app } from "./app.ts";
 
-const server = http.createServer();
+const server = createServer(
+  createServerAdapter(app.fetch as unknown as ServerAdapterRequestHandler<unknown>),
+);
 server.listen(3000);
-
-await serve({ app, server });
 ```
 
 Run the application:
 
 ```bash
-npx ts-node index.ts
+npx ts-node src/main.ts
 ```
 
 Access the API at `http://localhost:3000`.
@@ -114,7 +119,7 @@ The `Application` class manages controllers and routes incoming requests to the 
 
 Define routes, HTTP methods, and validation schemas using the `Controller` type.
 
-### `HTTPCode` and `HTTPMethod`
+### `HTTPStatus` and `HTTPMethod`
 
 Constants for HTTP status codes and methods.
 
