@@ -19,7 +19,7 @@ export const GetSpeakersController = createController(() => ({
     }),
   ),
   handler: async (data) => {
-    console.log("[Controller] GetEvents:", data.params.offset, data.params.limit);
+    console.log("[Controller] GetSpeakers:", data.params.offset, data.params.limit);
 
     return {
       status: HTTPStatus.OK,

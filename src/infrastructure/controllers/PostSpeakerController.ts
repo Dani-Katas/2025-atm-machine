@@ -15,7 +15,7 @@ export const PostSpeakerController = createController((createSpeaker: CreateSpea
   }),
   responseBody: NoBody,
   handler: async (data) => {
-    console.log("[Controller] PostEvent:", data.body.id, data.body.id);
+    console.log("[Controller] PostSpeaker:", data.body.id, data.body.id);
 
     await createSpeaker.execute(); // Dummy call to an use case
 

@@ -4,8 +4,8 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "node src/main.ts",
-    "start:dev": "node --watch src/main.ts",
+    "start": "node src/node.ts",
+    "start:dev": "node --watch src/node.ts",
     "test": "node --test --import ./test/setup.ts",
     "test:watch": "node --watch --test --import ./test/setup.ts",
     "check": "biome check",

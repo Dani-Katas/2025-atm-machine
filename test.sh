@@ -1,29 +1,29 @@
-echo "Performing POST request to create an event"
-curl 'http://localhost:3000/api/events' \
+echo "Performing POST request to create a speaker"
+curl 'http://localhost:8000/api/speakers' \
 --header 'Content-Type: application/json' \
 --data '{
   "id": "fd61734e-1ee9-41ac-8b0b-c7f8794a5981",
-  "name": "First Event"
+  "name": "First Speaker"
 }'
 echo ""
 
-echo "Performing GET request to retrieve the event"
-curl 'http://localhost:3000/api/events/123'
+echo "Performing GET request to retrieve the speaker"
+curl 'http://localhost:8000/api/speakers/123'
 echo ""
 
-echo "Performing GET request to retrieve the list of events"
-curl 'http://localhost:3000/api/events?offset=10'
+echo "Performing GET request to retrieve the list of speakers"
+curl 'http://localhost:8000/api/speakers?offset=10'
 echo ""
 
 echo "Performing POST with errors"
-curl 'http://localhost:3000/api/events' \
+curl 'http://localhost:8000/api/speakers' \
 --header 'Content-Type: application/json' \
 --data '{
   "id": "wrong-uuid",
-  "name": "First Event"
+  "name": "First Speaker"
 }'
 echo ""
 
-echo "Performing GET request to retrieve the list of events with errors"
-curl 'http://localhost:3000/api/events?offset=asdf'
+echo "Performing GET request to retrieve the list of speakers with errors"
+curl 'http://localhost:8000/api/speakers?offset=asdf'
 echo ""

@@ -14,7 +14,7 @@ export const GetSpeakerController = createController(() => ({
     name: z.string(),
   }),
   handler: async (data) => {
-    console.log("[Controller] GetEvent:", data.path.id);
+    console.log("[Controller] GetSpeaker:", data.path.id);
 
     return {
       status: HTTPStatus.OK,
