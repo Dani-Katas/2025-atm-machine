@@ -8,6 +8,7 @@ This is a lightweight, homemade framework for building HTTP applications in Type
 - **Request and response handling**: Built-in support for parsing parameters, request bodies, and generating structured responses.
 - **Error handling**: Graceful handling of validation errors, syntax errors, and unknown errors.
 - **Cross-platform support**: Works with Node.js, Deno, and Bun.
+- **Dependency Injection Support**: Use your favorite dependency injection library (e.g., Inversify) to inject dependencies into controllers.
 
 ## Project Structure
 
@@ -46,43 +47,74 @@ Example: `GetSpeakerController.ts`
 ```typescript
 import { z } from "zod";
 import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
-import type { Controller } from "../../../framework/Controller.ts";
+import { createController } from "../../../framework/Controller.ts";
 import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
 
-const Params = z.object({});
-const RequestBody = z.undefined();
-const ResponseBody = z.object({
-  id: z.string().uuid(),
-  name: z.string(),
-});
-
-export const GetEventController: Controller<...> = {
-  path: "/api/events/:id",
+export const GetSpeakerController = createController(() => ({
+  path: "/api/speakers/:id",
   method: HTTPMethod.GET,
-  params: Params,
-  requestBody: RequestBody,
-  responseBody: ResponseBody,
+  params: z.object({}),
+  requestBody: z.undefined(),
+  responseBody: z.object({
+    id: z.string().uuid(),
+    name: z.string(),
+  }),
   handler: async (data) => {
     return {
       status: HTTPStatus.OK,
-      json: { id: "example-id", name: "Example Event" },
+      json: { id: "example-id", name: "Example Speaker" },
     };
   },
-};
+}));
 ```
 
 2. **Register Controllers**: Add controllers to the `Application` instance in `src/app.ts`.
 
 ```typescript
 import { Application } from "../framework/Application.ts";
-import { GetEventController } from "./infrastructure/controllers/GetSpeakerController.ts";
+import { GetSpeakerController } from "./infrastructure/controllers/GetSpeakerController.ts";
 import { GetSpeakersController } from "./infrastructure/controllers/GetSpeakersController.ts";
 import { PostSpeakerController } from "./infrastructure/controllers/PostSpeakerController.ts";
 
-export const app = new Application([GetEventController, GetSpeakersController, PostSpeakerController]);
+export const app = new Application([
+  GetSpeakerController.create(),
+  GetSpeakersController.create(),
+  PostSpeakerController.create(),
+]);
 ```
 
-3. **Start the Server**: Use the appropriate entry point for your runtime.
+3. **Use Dependency Injection**: You can use libraries like Inversify to inject dependencies into your controllers. For example:
+
+```typescript
+import { injectable } from "inversify";
+
+@injectable()
+class SpeakerService {
+  getSpeakerById(id: string) {
+    return { id, name: "Injected Speaker" };
+  }
+}
+
+export const GetSpeakerController = createController((speakerService: SpeakerService) => ({
+  path: "/api/speakers/:id",
+  method: HTTPMethod.GET,
+  params: z.object({}),
+  requestBody: z.undefined(),
+  responseBody: z.object({
+    id: z.string().uuid(),
+    name: z.string(),
+  }),
+  handler: async (data) => {
+    const speaker = speakerService.getSpeakerById(data.path.id);
+    return {
+      status: HTTPStatus.OK,
+      json: speaker,
+    };
+  },
+}));
+```
+
+4. **Start the Server**: Use the appropriate entry point for your runtime.
 
 #### Node.js
 Run the server using `src/node.ts`:
@@ -132,19 +164,19 @@ Access the API at `http://localhost:8000`.
 
 ## Example Controllers
 
-- **`GetEventController`**: Handles fetching a single event by ID.
-- **`GetSpeakersController`**: Handles fetching a list of events with optional pagination.
-- **`PostSpeakerController`**: Handles creating a new event.
+- **`GetSpeakerController`**: Handles fetching a single speaker by ID.
+- **`GetSpeakersController`**: Handles fetching a list of speakers with optional pagination.
+- **`PostSpeakerController`**: Handles creating a new speaker.
 
 ## Framework Components
 
 ### `Application`
 
-The `Application` class manages controllers and routes incoming requests to the appropriate handler.
+The `Application` class manages controllers and routes incoming requests to the appropriate handler. It includes built-in error handling for validation errors, syntax errors, and unknown errors.
 
-### `Controller`
+### `createController`
 
-Define routes, HTTP methods, and validation schemas using the `Controller` type.
+The `createController` function simplifies the creation of controllers by allowing you to define the route, HTTP method, validation schemas, and handler logic in a structured way. It also supports dependency injection for enhanced flexibility.
 
 ### `HTTPStatus` and `HTTPMethod`
 
