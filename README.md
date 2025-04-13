@@ -42,7 +42,7 @@ npm install
 
 1. **Define Controllers**: Create controllers in the `src/infrastructure/controllers/` directory. Each controller specifies a route, HTTP method, and handler logic.
 
-Example: `GetEventController.ts`
+Example: `GetSpeakerController.ts`
 ```typescript
 import { z } from "zod";
 import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
@@ -75,11 +75,11 @@ export const GetEventController: Controller<...> = {
 
 ```typescript
 import { Application } from "../framework/Application.ts";
-import { GetEventController } from "./infrastructure/controllers/GetEventController.ts";
-import { GetEventsController } from "./infrastructure/controllers/GetEventsController.ts";
-import { PostEventController } from "./infrastructure/controllers/PostEventController.ts";
+import { GetEventController } from "./infrastructure/controllers/GetSpeakerController.ts";
+import { GetSpeakersController } from "./infrastructure/controllers/GetSpeakersController.ts";
+import { PostSpeakerController } from "./infrastructure/controllers/PostSpeakerController.ts";
 
-export const app = new Application([GetEventController, GetEventsController, PostEventController]);
+export const app = new Application([GetEventController, GetSpeakersController, PostSpeakerController]);
 ```
 
 3. **Start the Server**: Use the appropriate entry point for your runtime.
@@ -133,8 +133,8 @@ Access the API at `http://localhost:8000`.
 ## Example Controllers
 
 - **`GetEventController`**: Handles fetching a single event by ID.
-- **`GetEventsController`**: Handles fetching a list of events with optional pagination.
-- **`PostEventController`**: Handles creating a new event.
+- **`GetSpeakersController`**: Handles fetching a list of events with optional pagination.
+- **`PostSpeakerController`**: Handles creating a new event.
 
 ## Framework Components
 

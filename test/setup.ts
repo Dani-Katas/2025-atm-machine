@@ -1,12 +1,11 @@
-import { expect } from "expect";
-import { HTTPError } from "ky";
 // @ts-ignore
 import { URLPattern } from "node:url";
+import { expect } from "expect";
+import { HTTPError } from "ky";
 
 // Patch until URLPattern is available in globalThis in node 24
 // @ts-ignore
 globalThis.URLPattern = URLPattern;
-
 
 expect.extend({
   hasStatus(received, expected) {

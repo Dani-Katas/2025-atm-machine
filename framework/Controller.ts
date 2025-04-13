@@ -25,3 +25,13 @@ export type Controller<
 export type AnyController = Controller<string, ZodType, ZodType, ZodType>;
 
 export type AnyControllerWithPattern = AnyController & { pattern: URLPattern };
+
+export function createController<
+  Path extends string,
+  ParamsType extends ZodType,
+  RequestBody extends ZodType,
+  ResponseBody extends ZodType,
+  Args extends unknown[],
+>(creator: (...args: Args) => Controller<Path, ParamsType, RequestBody, ResponseBody>) {
+  return { create: creator };
+}
