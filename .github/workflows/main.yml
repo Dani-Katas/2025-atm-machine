@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: Test
+    runs-on: ubuntu-latest
+    container: node:lts
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: node --run check:ci
+      - run: node --run typecheck
+      - run: node --run test

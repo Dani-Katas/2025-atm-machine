@@ -10,7 +10,8 @@
     "test:watch": "node --watch --test --import ./test/setup.ts",
     "check": "biome check",
     "check:fix": "biome check --fix",
-    "check:ci": "biome ci"
+    "check:ci": "biome ci",
+    "typecheck": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +20,8 @@
     "@biomejs/biome": "1.9.4",
     "@types/node": "^22.14.1",
     "expect": "^29.7.0",
-    "ky": "^1.8.0"
+    "ky": "^1.8.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@whatwg-node/server": "^0.10.3",
