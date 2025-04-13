@@ -49,12 +49,13 @@ npm install
     import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
     import { createController } from "../../../framework/Controller.ts";
     import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
+    import { NoParams, NoBody } from "../../../framework/Aliases.ts";
 
     export const GetSpeakerController = createController(() => ({
       path: "/api/speakers/:id",
       method: HTTPMethod.GET,
-      params: z.object({}),
-      requestBody: z.undefined(),
+      params: NoParams,
+      requestBody: NoBody,
       responseBody: z.object({
         id: z.string().uuid(),
         name: z.string(),
