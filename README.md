@@ -43,78 +43,47 @@ npm install
 
 1. **Define Controllers**: Create controllers in the `src/infrastructure/controllers/` directory. Each controller specifies a route, HTTP method, and handler logic.
 
-Example: `GetSpeakerController.ts`
-```typescript
-import { z } from "zod";
-import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
-import { createController } from "../../../framework/Controller.ts";
-import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
+    Example: `GetSpeakerController.ts`
+    ```typescript
+    import { z } from "zod";
+    import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
+    import { createController } from "../../../framework/Controller.ts";
+    import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
 
-export const GetSpeakerController = createController(() => ({
-  path: "/api/speakers/:id",
-  method: HTTPMethod.GET,
-  params: z.object({}),
-  requestBody: z.undefined(),
-  responseBody: z.object({
-    id: z.string().uuid(),
-    name: z.string(),
-  }),
-  handler: async (data) => {
-    return {
-      status: HTTPStatus.OK,
-      json: { id: "example-id", name: "Example Speaker" },
-    };
-  },
-}));
-```
+    export const GetSpeakerController = createController(() => ({
+      path: "/api/speakers/:id",
+      method: HTTPMethod.GET,
+      params: z.object({}),
+      requestBody: z.undefined(),
+      responseBody: z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+      }),
+      handler: async (data) => {
+        return {
+          status: HTTPStatus.OK,
+          json: { id: "example-id", name: "Example Speaker" },
+        };
+      },
+    }));
+    ```
 
 2. **Register Controllers**: Add controllers to the `Application` instance in `src/app.ts`.
 
-```typescript
-import { Application } from "../framework/Application.ts";
-import { GetSpeakerController } from "./infrastructure/controllers/GetSpeakerController.ts";
-import { GetSpeakersController } from "./infrastructure/controllers/GetSpeakersController.ts";
-import { PostSpeakerController } from "./infrastructure/controllers/PostSpeakerController.ts";
+    ```typescript
+    import { Application } from "../framework/Application.ts";
+    import { GetSpeakerController } from "./infrastructure/controllers/GetSpeakerController.ts";
+    import { GetSpeakersController } from "./infrastructure/controllers/GetSpeakersController.ts";
+    import { PostSpeakerController } from "./infrastructure/controllers/PostSpeakerController.ts";
 
-export const app = new Application([
-  GetSpeakerController.create(),
-  GetSpeakersController.create(),
-  PostSpeakerController.create(),
-]);
-```
+    export const app = new Application([
+      GetSpeakerController.create(),
+      GetSpeakersController.create(),
+      PostSpeakerController.create(),
+    ]);
+    ```
 
-3. **Use Dependency Injection**: You can use libraries like Inversify to inject dependencies into your controllers. For example:
-
-```typescript
-import { injectable } from "inversify";
-
-@injectable()
-class SpeakerService {
-  getSpeakerById(id: string) {
-    return { id, name: "Injected Speaker" };
-  }
-}
-
-export const GetSpeakerController = createController((speakerService: SpeakerService) => ({
-  path: "/api/speakers/:id",
-  method: HTTPMethod.GET,
-  params: z.object({}),
-  requestBody: z.undefined(),
-  responseBody: z.object({
-    id: z.string().uuid(),
-    name: z.string(),
-  }),
-  handler: async (data) => {
-    const speaker = speakerService.getSpeakerById(data.path.id);
-    return {
-      status: HTTPStatus.OK,
-      json: speaker,
-    };
-  },
-}));
-```
-
-4. **Start the Server**: Use the appropriate entry point for your runtime.
+3. **Start the Server**: Use the appropriate entry point for your runtime.
 
 #### Node.js
 Run the server using `src/node.ts`:
@@ -131,7 +100,7 @@ server.listen(8000);
 
 Run the application:
 ```bash
-npx ts-node src/node.ts
+node src/node.ts
 ```
 
 #### Deno
