@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { NoBody, ParamNumber } from "../../../framework/Aliases.ts";
+import { NoBody } from "../../../framework/Aliases.ts";
 import { createController } from "../../../framework/Controller.ts";
 import { HTTPMethod } from "../../../framework/HTTPMethod.ts";
 import { HTTPStatus } from "../../../framework/HTTPStatus.ts";
@@ -8,8 +8,8 @@ export const GetSpeakersController = createController(() => ({
   path: "/api/speakers" as const,
   method: HTTPMethod.GET,
   params: z.object({
-    offset: ParamNumber.optional(),
-    limit: ParamNumber.optional(),
+    offset: z.coerce.number().optional(),
+    limit: z.coerce.number().optional(),
   }),
   requestBody: NoBody,
   responseBody: z.array(
