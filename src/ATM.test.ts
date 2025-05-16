@@ -30,4 +30,10 @@ describe("ATM", () => {
 
     assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 2 }] as CountableMoney[]);
   });
+
+  it.skip("throws error if no available money", () => {
+    const atm = new ATM([{ denominator: 2, type: "coin" }]);
+
+    assert.throws(() => atm.withdraw(1));
+  });
 });
