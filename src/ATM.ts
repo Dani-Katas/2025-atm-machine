@@ -60,42 +60,10 @@ export class ATM {
         ];
       }
 
-      if (quantity === 6) {
-        return [
-          {
-            denominator: 2,
-            quantity: 3,
-            type: "coin",
-          },
-        ];
-      }
-      if (quantity === 5) {
+      if (quantity % 2 === 1) {
         throw new Error("Unimplemented method ATM#withdraw");
       }
-      if (quantity === 4) {
-        return [
-          {
-            denominator: 2,
-            quantity: 2,
-            type: "coin",
-          },
-        ];
-      }
-      if (quantity === 3) {
-        throw new Error("Unimplemented method ATM#withdraw");
-      }
-      if (quantity === 2) {
-        return [
-          {
-            denominator: 2,
-            quantity: 1,
-            type: "coin",
-          },
-        ];
-      }
-      if (quantity === 1) {
-        throw new Error("Unimplemented method ATM#withdraw");
-      }
+
       if (quantity === 0) {
         return [];
       }
