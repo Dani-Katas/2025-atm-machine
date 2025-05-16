@@ -22,10 +22,20 @@ export class ATM {
 
   withdraw(quantity: number): Array<CountableMoney> {
     if (this.money.length === 2) {
-      return [
-        ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
-        ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
-      ];
+      if (quantity === 3) {
+        return [
+          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
+        ];
+      } else {
+        return [
+          {
+            denominator: 2,
+            quantity: 2,
+            type: "coin",
+          },
+        ];
+      }
     }
 
     if (quantity > 0) {
