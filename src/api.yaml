@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Codetalk API
+  description: Codetalk API
+  version: 1.0.0
+paths:
+  /api/speakers:
+    get:
+      summary: Get all speakers
+      operationId: getSpeakers
+      parameters:
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Speaker'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Create a new speaker
+      operationId: createSpeaker
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Speaker'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Speaker'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/speakers/:id:
+    get:
+      summary: Get speaker by ID
+      operationId: getSpeakerById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Speaker ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Speaker'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    SpeakerId:
+      type: string
+      example: 8617e1d6-b7bd-416c-a7b7-1c5620d0066a
+      format: uuid
+    Speaker:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+      properties:
+        id:
+          $ref: '#/components/schemas/SpeakerId'
+        name:
+          type: string
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: Error message
+  parameters:
+    offset:
+      name: offset
+      in: query
+      schema:
+        type: integer
+      description: Number of items to skip
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+      description: Number of items to return
