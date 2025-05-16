@@ -26,9 +26,9 @@ describe("ATM", () => {
   it("does nothing with zero amount", () => {
     const atm = new ATM([{ denominator: 1, type: "coin" }]);
 
-    const money = atm.withdraw(0);
-
-    assert.deepEqual(money, []);
+    assert.throws(() => {
+      atm.withdraw(0);
+    });
   });
 
   it("returns one coin", () => {
@@ -74,9 +74,9 @@ describe("ATM", () => {
   it("yyyyyy", () => {
     const atm = new ATM([{ denominator: 3, type: "coin" }]);
 
-    const money = atm.withdraw(0);
-
-    assert.deepEqual(money, [] as CountableMoney[]);
+    assert.throws(() => {
+      atm.withdraw(0);
+    });
   });
 
   it("yyyyyyyyy", () => {
