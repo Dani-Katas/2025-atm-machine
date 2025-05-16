@@ -28,13 +28,7 @@ export class ATM {
           ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
         ];
       } else {
-        return [
-          {
-            denominator: 2,
-            quantity: 2,
-            type: "coin",
-          },
-        ];
+        return [...new ATM([{ denominator: 2, type: "coin" }]).withdraw(4)];
       }
     }
 
@@ -42,7 +36,7 @@ export class ATM {
       const diff = this.money[0].denominator;
 
       if (this.money[0].denominator === 2) {
-        quantity -= 1;
+        quantity -= quantity / this.money[0].denominator;
 
         return [
           {
