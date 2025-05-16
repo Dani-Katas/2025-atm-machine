@@ -22,4 +22,12 @@ describe("ATM", () => {
 
     assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 1 }] as CountableMoney[]);
   });
+
+  it("returns two coins", () => {
+    const atm = new ATM([{ denominator: 1, type: "coin" }]);
+
+    const money = atm.withdraw(2);
+
+    assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 2 }] as CountableMoney[]);
+  });
 });
