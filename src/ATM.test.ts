@@ -15,6 +15,14 @@ describe("ATM", () => {
     assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 3 }] as CountableMoney[]);
   });
 
+  it("anotherxx", () => {
+    const atm = new ATM([{ denominator: 1, type: "coin" }]);
+
+    const money = atm.withdraw(4);
+
+    assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 4 }] as CountableMoney[]);
+  });
+
   it("does nothing with zero amount", () => {
     const atm = new ATM([{ denominator: 1, type: "coin" }]);
 
