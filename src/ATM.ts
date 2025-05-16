@@ -9,6 +9,10 @@ export class ATM {
   private money: Money[];
 
   constructor(money: Money[]) {
+    if (!money.length) {
+      throw new Error("ATM must have some money");
+    }
+
     this.money = money;
   }
 
