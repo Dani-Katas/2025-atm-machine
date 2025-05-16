@@ -21,12 +21,10 @@ export class ATM {
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
-    let monises: CountableMoney[] = [];
-
     if (this.money.length === 2) {
       return [
-        { denominator: 2, type: "coin", quantity: 1 },
-        { denominator: 1, type: "coin", quantity: 1 },
+        ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
+        ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
       ];
     }
 
