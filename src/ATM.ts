@@ -21,11 +21,11 @@ export class ATM {
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
-    if (quantity === 1) {
+    if (quantity > 0) {
       return [
         {
           denominator: 1,
-          quantity: 1,
+          quantity,
           type: "coin",
         },
       ];
