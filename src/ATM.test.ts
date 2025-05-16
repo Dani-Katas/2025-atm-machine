@@ -99,6 +99,14 @@ describe("ATM", () => {
     assert.deepEqual(money, [{ denominator: 3, type: "coin", quantity: 1 }] as CountableMoney[]);
   });
 
+  it("yyyyyyyyyyyyyyasdasdy", () => {
+    const atm = new ATM([{ denominator: 3, type: "coin" }]);
+
+    const money = atm.withdraw(9);
+
+    assert.deepEqual(money, [{ denominator: 3, type: "coin", quantity: 3 }] as CountableMoney[]);
+  });
+
   it("yyyyyyyyyyyyyyyyyyy", () => {
     const atm = new ATM([{ denominator: 3, type: "coin" }]);
 
