@@ -105,6 +105,12 @@ describe("ATM", () => {
     assert.throws(() => atm.withdraw(4));
   });
 
+  it("yyyyyyyyyyyyyyyyyyyyyyy", () => {
+    const atm = new ATM([{ denominator: 3, type: "coin" }]);
+
+    assert.throws(() => atm.withdraw(5));
+  });
+
   it("xxxxxxxx", () => {
     const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
