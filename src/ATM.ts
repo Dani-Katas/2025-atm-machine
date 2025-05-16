@@ -50,6 +50,9 @@ export class ATM {
     }
 
     if (this.money[0].denominator === 2) {
+      if (quantity === 5) {
+        throw new Error("Unimplemented method ATM#withdraw");
+      }
       if (quantity === 4) {
         return [
           {
@@ -58,6 +61,9 @@ export class ATM {
             type: "coin",
           },
         ];
+      }
+      if (quantity === 3) {
+        throw new Error("Unimplemented method ATM#withdraw");
       }
       if (quantity === 2) {
         return [
@@ -76,56 +82,16 @@ export class ATM {
       }
     }
 
-    if (quantity === 4) {
+    if (quantity > 0) {
       return [
         {
           denominator: 1,
-          quantity: 4,
+          quantity,
           type: "coin",
         },
       ];
     }
 
-    if (quantity === 3) {
-      return [
-        {
-          denominator: 1,
-          quantity: 3,
-          type: "coin",
-        },
-      ];
-    }
-
-    /*
-    if (quantity === 3) {
-      return [
-        {
-          denominator: 1,
-          quantity: 3,
-          type: "coin",
-        },
-      ];
-    }*/
-
-    if (quantity === 2) {
-      return [
-        {
-          denominator: 1,
-          quantity: 2,
-          type: "coin",
-        },
-      ];
-    }
-
-    if (quantity === 1) {
-      return [
-        {
-          denominator: 1,
-          quantity: 1,
-          type: "coin",
-        },
-      ];
-    }
     if (quantity === 0) {
       return [];
     }

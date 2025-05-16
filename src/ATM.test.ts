@@ -48,11 +48,27 @@ describe("ATM", () => {
   });
 
   it("uses another type of denominator", () => {
+    const atm = new ATM([{ denominator: 1, type: "coin" }]);
+
+    const money = atm.withdraw(99999);
+
+    assert.deepEqual(money, [
+      { denominator: 1, type: "coin", quantity: 99999 },
+    ] as CountableMoney[]);
+  });
+
+  it("uses another type of denominator", () => {
     const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
     const money = atm.withdraw(2);
 
     assert.deepEqual(money, [{ denominator: 2, type: "coin", quantity: 1 }] as CountableMoney[]);
+  });
+
+  it("xxxxxxx", () => {
+    const atm = new ATM([{ denominator: 2, type: "coin" }]);
+
+    assert.throws(() => atm.withdraw(5));
   });
 
   it("dunno2", () => {
@@ -61,6 +77,12 @@ describe("ATM", () => {
     const money = atm.withdraw(4);
 
     assert.deepEqual(money, [{ denominator: 2, type: "coin", quantity: 2 }] as CountableMoney[]);
+  });
+
+  it("dunno3", () => {
+    const atm = new ATM([{ denominator: 2, type: "coin" }]);
+
+    assert.throws(() => atm.withdraw(3));
   });
 
   it("uses another type of denominator with leftovers", () => {
