@@ -50,6 +50,9 @@ export class ATM {
     }
 
     if (this.money[0].denominator === 3) {
+      if (quantity === 4) {
+        throw new Error("Unimplemented method ATM#withdraw");
+      }
       if (quantity === 3) {
         return [
           {
