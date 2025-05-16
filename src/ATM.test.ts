@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { beforeEach, describe, it } from "node:test";
-import { ATM } from "./ATM.ts";
+import { ATM, type CountableMoney } from "./ATM.ts";
 
 describe("ATM", () => {
   it("cannot have money", () => {
@@ -13,5 +13,13 @@ describe("ATM", () => {
     const money = atm.withdraw(0);
 
     assert.deepEqual(money, []);
+  });
+
+  it("returns one coin", () => {
+    const atm = new ATM([{ denominator: 1, type: "coin" }]);
+
+    const money = atm.withdraw(1);
+
+    assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 1 }] as CountableMoney[]);
   });
 });

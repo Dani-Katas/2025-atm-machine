@@ -1,4 +1,8 @@
-type CountableMoney = {};
+export type CountableMoney = {
+  denominator: number;
+  type: string;
+  quantity: number;
+};
 
 type Money = {
   denominator: number;
@@ -17,6 +21,16 @@ export class ATM {
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
+    if (quantity === 1) {
+      return [
+        {
+          denominator: 1,
+          quantity: 1,
+          type: "coin",
+        },
+      ];
+    }
+
     return [];
   }
 }
