@@ -22,9 +22,23 @@ export class ATM {
 
   withdraw(quantity: number): Array<CountableMoney> {
     if (quantity > 0) {
+      const diff = this.money[0].denominator;
+
+      if (this.money[0].denominator === 2) {
+        quantity -= 1;
+
+        return [
+          {
+            denominator: this.money[0].denominator,
+            quantity,
+            type: "coin",
+          },
+        ];
+      }
+
       return [
         {
-          denominator: 1,
+          denominator: this.money[0].denominator,
           quantity,
           type: "coin",
         },
