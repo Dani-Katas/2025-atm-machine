@@ -50,6 +50,16 @@ export class ATM {
     }
 
     if (this.money[0].denominator === 2) {
+      if (quantity % 2 === 0) {
+        return [
+          {
+            denominator: 2,
+            quantity: quantity / 2,
+            type: "coin",
+          },
+        ];
+      }
+
       if (quantity === 6) {
         return [
           {
