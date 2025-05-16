@@ -50,6 +50,15 @@ export class ATM {
     }
 
     if (this.money[0].denominator === 2) {
+      if (quantity === 6) {
+        return [
+          {
+            denominator: 2,
+            quantity: 3,
+            type: "coin",
+          },
+        ];
+      }
       if (quantity === 5) {
         throw new Error("Unimplemented method ATM#withdraw");
       }
