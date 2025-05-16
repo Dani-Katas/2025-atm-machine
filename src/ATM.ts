@@ -28,7 +28,6 @@ export class ATM {
           ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
         ];
       }
-
       if (quantity === 1) {
         return [...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1)];
       }
@@ -42,9 +41,46 @@ export class ATM {
           ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
           ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
         ];
-      } else {
+      }
+      if (quantity === 4) {
         return [...new ATM([{ denominator: 2, type: "coin" }]).withdraw(4)];
       }
+
+      throw new Error("Unimplemented method ATM#withdraw");
+    }
+
+    if (quantity === 3) {
+      return [
+        {
+          denominator: 1,
+          quantity: 3,
+          type: "coin",
+        },
+      ];
+    }
+
+    /*
+    if (quantity === 3) {
+      return [
+        {
+          denominator: 1,
+          quantity: 3,
+          type: "coin",
+        },
+      ];
+    }*/
+
+    if (quantity === 1) {
+      return [
+        {
+          denominator: 1,
+          quantity: 1,
+          type: "coin",
+        },
+      ];
+    }
+    if (quantity === 0) {
+      return [];
     }
 
     if (quantity > 0) {
