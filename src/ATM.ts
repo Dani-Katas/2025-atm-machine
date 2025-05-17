@@ -25,36 +25,10 @@ export class ATM {
       const [current, ...restOfMonises] = this.money;
       const restNextMoney = quantity % current.denominator;
       const currentMoneyAmount = quantity - restNextMoney;
-      if (quantity === 5) {
-        return [
-          ...new ATM([{ denominator: 5, type: "coin" }]).withdraw(currentMoneyAmount),
-          ...new ATM(restOfMonises).withdraw(restNextMoney),
-        ];
-      }
-      if (quantity === 4) {
-        return [
-          ...new ATM([{ denominator: 5, type: "coin" }]).withdraw(currentMoneyAmount),
-          ...new ATM(restOfMonises).withdraw(restNextMoney),
-        ];
-      }
-      if (quantity === 3) {
-        return [
-          ...new ATM([{ denominator: 5, type: "coin" }]).withdraw(currentMoneyAmount),
-          ...new ATM(restOfMonises).withdraw(restNextMoney),
-        ];
-      }
-      if (quantity === 2) {
-        return [
-          ...new ATM([{ denominator: 5, type: "coin" }]).withdraw(currentMoneyAmount),
-          ...new ATM(restOfMonises).withdraw(restNextMoney),
-        ];
-      }
-      if (quantity === 1) {
-        return [
-          ...new ATM([{ denominator: 5, type: "coin" }]).withdraw(currentMoneyAmount),
-          ...new ATM(restOfMonises).withdraw(restNextMoney),
-        ];
-      }
+      return [
+        ...new ATM([{ denominator: 5, type: "coin" }]).withdraw(currentMoneyAmount),
+        ...new ATM(restOfMonises).withdraw(restNextMoney),
+      ];
     }
     if (this.money.length === 2) {
       const restNextMoney = quantity % this.money[0].denominator;
