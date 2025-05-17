@@ -7,7 +7,6 @@ export class ATM {
 
   public static of(money: Money[]): ATM {
     if (!money.length) return new EmptyATM();
-
     return new ATM(money);
   }
 
