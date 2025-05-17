@@ -15,7 +15,10 @@ export class ATM {
   }
 
   withdraw(quantity: number): Array<Denomination> {
-    const [current, ...money] = this.money;
+    return this.retrieve(this.money, quantity);
+  }
+
+  private retrieve([current, ...money]: Money[], quantity: number) {
     const atm = ATM.of(money);
     const denomination = current.toDenomination(quantity);
     return new Cash([denomination, ...atm.withdraw(current.leftovers(quantity))]).toArray();
