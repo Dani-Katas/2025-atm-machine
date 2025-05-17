@@ -3,10 +3,6 @@ import { beforeEach, describe, it } from "node:test";
 import { ATM, type CountableMoney } from "./ATM.ts";
 
 describe("ATM", () => {
-  it("cannot have money", () => {
-    assert.throws(() => new ATM([]));
-  });
-
   it("anotherx", () => {
     const atm = new ATM([{ denominator: 1, type: "coin" }]);
 
@@ -81,6 +77,12 @@ describe("ATM", () => {
     const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
     assert.deepEqual(atm.withdraw(0), []);
+  });
+
+  it("dummy test", () => {
+    const atm = new ATM([]);
+
+    assert.throws(() => atm.withdraw(1));
   });
 
   it("yyyyyyyyy", () => {
