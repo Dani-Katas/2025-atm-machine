@@ -37,10 +37,14 @@ export class ATM {
           ];
         }
 
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
-        ];
+        if (this.money[0].denominator === 2) {
+          return [
+            ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6),
+            ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
+          ];
+        }
+
+        throw new Error("Unimplemented method ATM#withdraw");
       }
       if (quantity === 6) {
         return [
