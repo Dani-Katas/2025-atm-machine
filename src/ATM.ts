@@ -3,7 +3,7 @@ import type { Money } from "./Money.js";
 import { Monises } from "./Monises.ts";
 
 export class ATM {
-  private money: Money[];
+  private readonly money: Money[];
 
   public static of(money: Money[]): ATM {
     if (!money.length) return new EmptyATM();
