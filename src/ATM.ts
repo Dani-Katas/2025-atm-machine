@@ -98,9 +98,19 @@ export class ATM {
           },
         ];
       }
+      if (quantity % 2 === 0) {
+        return [
+          {
+            denominator: 1,
+            quantity,
+            type: "coin",
+          },
+        ];
+      }
       if (quantity % 2 === 1) {
         throw new Error("Unimplemented method ATM#withdraw");
       }
+      throw new Error("Unimplemented method ATM#withdraw");
     }
 
     if (quantity > 0) {
