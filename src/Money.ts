@@ -14,7 +14,7 @@ export class MoneyNew {
     this.type = type;
   }
 
-  public toDenomination2(quantity: number): Denomination {
+  public toDenomination(quantity: number): Denomination {
     return {
       value: this.value,
       quantity: (quantity - this.leftovers(quantity)) / this.value,

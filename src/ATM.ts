@@ -18,7 +18,7 @@ export class ATM {
     const [current, ...money] = this.money2;
     const leftovers = current.leftovers(quantity);
     return new Cash([
-      current.toDenomination2(quantity),
+      current.toDenomination(quantity),
       ...ATM.of(money).withdraw(leftovers),
     ]).toArray();
   }
