@@ -32,7 +32,7 @@ class EmptyATM extends ATM {
 
   withdraw(quantity: number): Array<Denomination> {
     if (quantity !== 0) {
-      throw new Error("Unimplemented method ATM#withdraw");
+      throw new Error("Not enough founds");
     }
 
     return [];
