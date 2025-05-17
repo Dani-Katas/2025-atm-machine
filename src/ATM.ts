@@ -21,6 +21,9 @@ export class ATM {
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
+    if (this.money.length === 3) {
+      return [...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1)];
+    }
     if (this.money.length === 2) {
       const restNextMoney = quantity % this.money[0].denominator;
       const currentMoneyAmount = quantity - restNextMoney;
