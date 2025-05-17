@@ -1,5 +1,6 @@
 import type { CountableMoney } from "./CountableMoney.js";
 import type { Money } from "./Money.js";
+import { Monises } from "./Monises.ts";
 
 export class ATM {
   private money: Money[];
@@ -25,10 +26,7 @@ export class ATM {
       quantity: currentMoneyAmount / current.denominator,
       type: "coin",
     };
-    if (value.quantity === 0) {
-      return [...new ATM(restOfMonises).withdraw(restNextMoney)];
-    } else {
-      return [value, ...new ATM(restOfMonises).withdraw(restNextMoney)];
-    }
+
+    return new Monises([value, ...new ATM(restOfMonises).withdraw(restNextMoney)]).toArray();
   }
 }
