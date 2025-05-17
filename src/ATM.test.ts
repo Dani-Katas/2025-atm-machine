@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { beforeEach, describe, it } from "node:test";
+import { describe, it } from "node:test";
 import { ATM } from "./ATM.ts";
 import type { Denomination } from "./Denomination.js";
 
