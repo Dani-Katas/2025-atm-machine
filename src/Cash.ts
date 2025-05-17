@@ -1,7 +1,7 @@
 import type { Denomination } from "./Denomination.js";
 
 export class Cash {
-  private money: Denomination[];
+  private readonly money: Denomination[];
 
   constructor(money: Denomination[]) {
     this.money = money.filter((m) => m.quantity);
