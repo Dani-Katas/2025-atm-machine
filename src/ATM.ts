@@ -38,13 +38,13 @@ export class ATM {
         return [
           ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
           ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
-        ].filter((e) => e.quantity !== 0);
+        ];
       }
       if (quantity === 4) {
         return [
           ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(4),
           ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
-        ].filter((e) => e.quantity !== 0);
+        ];
       }
       if (quantity === 5) {
         return [
