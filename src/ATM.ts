@@ -17,7 +17,7 @@ export class ATM {
   withdraw(quantity: number): Array<Denomination> {
     const [current, ...money] = this.money;
     const leftovers = quantity % current.value;
-    const value = {
+    const value: Denomination = {
       value: current.value,
       quantity: (quantity - leftovers) / current.value,
       type: "coin",
