@@ -1,6 +1,6 @@
 import type { Denomination } from "./Denomination.js";
 
-export class Monises {
+export class Cash {
   private money: Denomination[];
 
   constructor(money: Denomination[]) {

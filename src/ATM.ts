@@ -1,11 +1,12 @@
 import type { Denomination } from "./Denomination.js";
 import type { Money } from "./Money.js";
-import { Monises } from "./Monises.ts";
+import { Cash } from "./Cash.ts";
 
 export class ATM {
   private readonly money: Money[];
+  private readonly money2: Money[];
 
-  public static of(money: Money[]): ATM {
+  public static of(money: Array<Money>): ATM {
     if (!money.length) return new EmptyATM();
     return new ATM(money);
   }
@@ -22,7 +23,7 @@ export class ATM {
       quantity: (quantity - leftovers) / current.value,
       type: "coin",
     };
-    return new Monises([value, ...ATM.of(money).withdraw(leftovers)]).toArray();
+    return new Cash([value, ...ATM.of(money).withdraw(leftovers)]).toArray();
   }
 }
 
