@@ -1,17 +1,17 @@
 import type { Denomination } from "./Denomination.js";
-import { type Money, MoneyNew } from "./Money.ts";
+import { type MoneyPrimitives, Money } from "./Money.ts";
 import { Cash } from "./Cash.ts";
 
 export class ATM {
-  private readonly money: MoneyNew[];
+  private readonly money: Money[];
 
-  public static of(money: Array<Money>): ATM {
+  public static of(money: Array<MoneyPrimitives>): ATM {
     if (!money.length) return new EmptyATM();
     return new ATM(money);
   }
 
-  protected constructor(money: Array<Money>) {
-    this.money = money.map((m) => new MoneyNew(m.value, m.type));
+  protected constructor(money: Array<MoneyPrimitives>) {
+    this.money = money.map((m) => new Money(m.value, m.type));
   }
 
   withdraw(quantity: number): Array<Denomination> {

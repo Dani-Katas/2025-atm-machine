@@ -1,11 +1,11 @@
 import type { Denomination } from "./Denomination.js";
 
-export type Money = {
+export type MoneyPrimitives = {
   value: number;
   type: string;
 };
 
-export class MoneyNew {
+export class Money {
   public readonly value: number;
   public readonly type: string;
 
