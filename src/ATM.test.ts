@@ -26,9 +26,7 @@ describe("ATM", () => {
   it("does nothing with zero amount", () => {
     const atm = new ATM([{ denominator: 1, type: "coin" }]);
 
-    assert.throws(() => {
-      atm.withdraw(0);
-    });
+    assert.deepEqual(atm.withdraw(0), []);
   });
 
   it("fobbarbaz", () => {
@@ -82,9 +80,7 @@ describe("ATM", () => {
   it("yyyyyy", () => {
     const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
-    assert.throws(() => {
-      atm.withdraw(0);
-    });
+    assert.deepEqual(atm.withdraw(0), []);
   });
 
   it("yyyyyyyyy", () => {
