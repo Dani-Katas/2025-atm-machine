@@ -44,8 +44,8 @@ export class ATM {
       type: "coin",
     };
 
-    if (quantity % currentMoneyAmount !== 0) {
-      return new ATM([]).withdraw(quantity);
+    if (value.quantity === 0) {
+      return [...new ATM([]).withdraw(restNextMoney)];
     }
 
     return [value, ...new ATM([]).withdraw(restNextMoney)];
