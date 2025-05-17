@@ -5,19 +5,17 @@ import { Monises } from "./Monises.ts";
 export class ATM {
   private money: Money[];
 
-  constructor(money: Money[]) {
+  public static of(money: Money[]): ATM {
+    if (!money.length) return new EmptyATM();
+
+    return new ATM(money);
+  }
+
+  private constructor(money: Money[]) {
     this.money = money;
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
-    if (this.money.length === 0) {
-      if (quantity === 0) {
-        return [];
-      } else {
-        throw new Error("Unimplemented method ATM#withdraw");
-      }
-    }
-
     const [current, ...restOfMonises] = this.money;
     const restNextMoney = quantity % current.denominator;
     const currentMoneyAmount = quantity - restNextMoney;
@@ -27,6 +25,20 @@ export class ATM {
       type: "coin",
     };
 
-    return new Monises([value, ...new ATM(restOfMonises).withdraw(restNextMoney)]).toArray();
+    return new Monises([value, ...ATM.of(restOfMonises).withdraw(restNextMoney)]).toArray();
+  }
+}
+
+class EmptyATM extends ATM {
+  constructor() {
+    super([]);
+  }
+
+  withdraw(quantity: number): Array<CountableMoney> {
+    if (quantity !== 0) {
+      throw new Error("Unimplemented method ATM#withdraw");
+    }
+
+    return [];
   }
 }
