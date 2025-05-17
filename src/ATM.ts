@@ -22,51 +22,12 @@ export class ATM {
 
   withdraw(quantity: number): Array<CountableMoney> {
     if (this.money.length === 2) {
-      if (quantity === 7) {
-        const foo = quantity % this.money[0].denominator;
-        const baz = quantity - foo;
-        return [
-          ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(baz),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(foo),
-        ];
-      }
-      if (quantity === 6) {
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
-        ];
-      }
-      if (quantity === 5) {
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(4),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
-        ];
-      }
-      if (quantity === 4) {
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(4),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
-        ];
-      }
-      if (quantity === 3) {
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
-        ];
-      }
-      if (quantity === 2) {
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
-        ];
-      }
-      if (quantity === 1) {
-        return [
-          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(0),
-          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
-        ];
-      }
-      throw new Error("Unimplemented method ATM#withdraw");
+      const foo = quantity % this.money[0].denominator;
+      const baz = quantity - foo;
+      return [
+        ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(baz),
+        ...new ATM([{ denominator: this.money[1].denominator, type: "coin" }]).withdraw(foo),
+      ];
     }
 
     if (quantity === 0) {
