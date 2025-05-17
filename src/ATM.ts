@@ -80,9 +80,7 @@ export class ATM {
           },
         ];
       }
-      if (quantity % 2 === 1) {
-        throw new Error("Unimplemented method ATM#withdraw");
-      }
+      throw new Error("Unimplemented method ATM#withdraw");
     }
 
     if (this.money[0].denominator === 1) {
@@ -106,9 +104,6 @@ export class ATM {
             type: "coin",
           },
         ];
-      }
-      if (quantity % 2 === 1) {
-        throw new Error("Unimplemented method ATM#withdraw");
       }
       throw new Error("Unimplemented method ATM#withdraw");
     }
