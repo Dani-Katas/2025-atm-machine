@@ -17,7 +17,7 @@ export class MoneyNew {
   public toDenomination2(quantity: number): Denomination {
     return {
       value: this.value,
-      quantity: (quantity - (quantity % this.value)) / this.value,
+      quantity: (quantity - this.leftovers(quantity)) / this.value,
       type: "coin",
     };
   }
