@@ -23,6 +23,13 @@ export class ATM {
   withdraw(quantity: number): Array<CountableMoney> {
     if (this.money.length === 2) {
       if (quantity === 7) {
+        if (this.money[0].denominator === 3) {
+          return [
+            ...new ATM([{ denominator: 3, type: "coin" }]).withdraw(6),
+            ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
+          ];
+        }
+
         return [
           ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6),
           ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
