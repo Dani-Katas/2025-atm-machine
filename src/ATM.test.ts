@@ -31,6 +31,14 @@ describe("ATM", () => {
     });
   });
 
+  it("fobbarbaz", () => {
+    const atm = new ATM([{ denominator: 4, type: "coin" }]);
+
+    const money = atm.withdraw(4);
+
+    assert.deepEqual(money, [{ denominator: 4, type: "coin", quantity: 1 }] as CountableMoney[]);
+  });
+
   it("returns one coin", () => {
     const atm = new ATM([{ denominator: 1, type: "coin" }]);
 
