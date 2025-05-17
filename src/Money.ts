@@ -1,4 +1,4 @@
 export type Money = {
-  denominator: number;
+  value: number;
   type: string;
 };

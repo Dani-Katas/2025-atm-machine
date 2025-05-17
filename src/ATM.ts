@@ -1,4 +1,4 @@
-import type { CountableMoney } from "./CountableMoney.js";
+import type { Denomination } from "./Denomination.js";
 import type { Money } from "./Money.js";
 import { Monises } from "./Monises.ts";
 
@@ -14,12 +14,12 @@ export class ATM {
     this.money = money;
   }
 
-  withdraw(quantity: number): Array<CountableMoney> {
+  withdraw(quantity: number): Array<Denomination> {
     const [current, ...money] = this.money;
-    const leftovers = quantity % current.denominator;
+    const leftovers = quantity % current.value;
     const value = {
-      denominator: current.denominator,
-      quantity: (quantity - leftovers) / current.denominator,
+      denominator: current.value,
+      quantity: (quantity - leftovers) / current.value,
       type: "coin",
     };
     return new Monises([value, ...ATM.of(money).withdraw(leftovers)]).toArray();
@@ -31,7 +31,7 @@ class EmptyATM extends ATM {
     super([]);
   }
 
-  withdraw(quantity: number): Array<CountableMoney> {
+  withdraw(quantity: number): Array<Denomination> {
     if (quantity !== 0) {
       throw new Error("Unimplemented method ATM#withdraw");
     }

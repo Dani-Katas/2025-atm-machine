@@ -1,9 +1,9 @@
-import type { CountableMoney } from "./CountableMoney.js";
+import type { Denomination } from "./Denomination.js";
 
 export class Monises {
-  private money: CountableMoney[];
+  private money: Denomination[];
 
-  constructor(money: CountableMoney[]) {
+  constructor(money: Denomination[]) {
     this.money = money.filter((m) => m.quantity);
   }
 
