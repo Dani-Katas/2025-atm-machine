@@ -1,5 +1,5 @@
 import type { Denomination } from "./Denomination.js";
-import type { Money } from "./Money.js";
+import { type Money, MoneyNew } from "./Money.ts";
 import { Cash } from "./Cash.ts";
 
 export class ATM {
@@ -11,8 +11,9 @@ export class ATM {
     return new ATM(money);
   }
 
-  protected constructor(money: Money[]) {
+  protected constructor(money: Array<Money>) {
     this.money = money;
+    this.money2 = money.map((m) => new MoneyNew(m.value, m.type));
   }
 
   withdraw(quantity: number): Array<Denomination> {
