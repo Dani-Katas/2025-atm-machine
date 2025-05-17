@@ -3,7 +3,6 @@ import { type Money, MoneyNew } from "./Money.ts";
 import { Cash } from "./Cash.ts";
 
 export class ATM {
-  private readonly money: Money[];
   private readonly money2: Money[];
 
   public static of(money: Array<Money>): ATM {
@@ -12,7 +11,6 @@ export class ATM {
   }
 
   protected constructor(money: Array<Money>) {
-    this.money = money;
     this.money2 = money.map((m) => new MoneyNew(m.value, m.type));
   }
 
