@@ -245,6 +245,20 @@ describe("ATM", () => {
     ] as CountableMoney[]);
   });
 
+  it("another7foo", () => {
+    const atm = new ATM([
+      { denominator: 4, type: "coin" },
+      { denominator: 1, type: "coin" },
+    ]);
+
+    const money = atm.withdraw(7);
+
+    assert.deepEqual(money, [
+      { denominator: 4, type: "coin", quantity: 1 },
+      { denominator: 1, type: "coin", quantity: 3 },
+    ] as CountableMoney[]);
+  });
+
   it.skip("throws error if no available money", () => {
     const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
