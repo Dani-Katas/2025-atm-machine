@@ -25,16 +25,6 @@ export class ATM {
       }
     }
 
-    if (this.money.length > 1) {
-      const [current, ...restOfMonises] = this.money;
-      const restNextMoney = quantity % current.denominator;
-      const currentMoneyAmount = quantity - restNextMoney;
-      return [
-        ...new ATM([current]).withdraw(currentMoneyAmount),
-        ...new ATM(restOfMonises).withdraw(restNextMoney),
-      ];
-    }
-
     const [current, ...restOfMonises] = this.money;
     const restNextMoney = quantity % current.denominator;
     const currentMoneyAmount = quantity - restNextMoney;
@@ -43,11 +33,10 @@ export class ATM {
       quantity: currentMoneyAmount / current.denominator,
       type: "coin",
     };
-
     if (value.quantity === 0) {
-      return [...new ATM([]).withdraw(restNextMoney)];
+      return [...new ATM(restOfMonises).withdraw(restNextMoney)];
+    } else {
+      return [value, ...new ATM(restOfMonises).withdraw(restNextMoney)];
     }
-
-    return [value, ...new ATM([]).withdraw(restNextMoney)];
   }
 }
