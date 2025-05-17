@@ -11,21 +11,19 @@ export class ATM {
     return new ATM(money);
   }
 
-  private constructor(money: Money[]) {
+  protected constructor(money: Money[]) {
     this.money = money;
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
-    const [current, ...restOfMonises] = this.money;
-    const restNextMoney = quantity % current.denominator;
-    const currentMoneyAmount = quantity - restNextMoney;
+    const [current, ...money] = this.money;
+    const leftovers = quantity % current.denominator;
     const value = {
       denominator: current.denominator,
-      quantity: currentMoneyAmount / current.denominator,
+      quantity: (quantity - leftovers) / current.denominator,
       type: "coin",
     };
-
-    return new Monises([value, ...ATM.of(restOfMonises).withdraw(restNextMoney)]).toArray();
+    return new Monises([value, ...ATM.of(money).withdraw(leftovers)]).toArray();
   }
 }
 
