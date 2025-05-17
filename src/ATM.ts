@@ -3,7 +3,7 @@ import { type Money, MoneyNew } from "./Money.ts";
 import { Cash } from "./Cash.ts";
 
 export class ATM {
-  private readonly money2: Money[];
+  private readonly money2: MoneyNew[];
 
   public static of(money: Array<Money>): ATM {
     if (!money.length) return new EmptyATM();
@@ -16,13 +16,11 @@ export class ATM {
 
   withdraw(quantity: number): Array<Denomination> {
     const [current, ...money] = this.money2;
-    const leftovers = quantity % current.value;
-    const value: Denomination = {
-      value: current.value,
-      quantity: (quantity - leftovers) / current.value,
-      type: "coin",
-    };
-    return new Cash([value, ...ATM.of(money).withdraw(leftovers)]).toArray();
+    const leftovers = current.leftovers(quantity);
+    return new Cash([
+      current.toDenomination2(quantity),
+      ...ATM.of(money).withdraw(leftovers),
+    ]).toArray();
   }
 }
 

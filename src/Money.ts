@@ -1,4 +1,4 @@
-import { type } from "node:os";
+import type { Denomination } from "./Denomination.js";
 
 export type Money = {
   value: number;
@@ -12,5 +12,17 @@ export class MoneyNew {
   constructor(value: number, type: string) {
     this.value = value;
     this.type = type;
+  }
+
+  public toDenomination2(quantity: number): Denomination {
+    return {
+      value: this.value,
+      quantity: (quantity - (quantity % this.value)) / this.value,
+      type: "coin",
+    };
+  }
+
+  public leftovers(quantity: number) {
+    return quantity % this.value;
   }
 }
