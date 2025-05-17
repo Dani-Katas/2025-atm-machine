@@ -1,13 +1,5 @@
-export type CountableMoney = {
-  denominator: number;
-  type: string;
-  quantity: number;
-};
-
-type Money = {
-  denominator: number;
-  type: string;
-};
+import type { CountableMoney } from "./CountableMoney.js";
+import type { Money } from "./Money.js";
 
 export class ATM {
   private money: Money[];

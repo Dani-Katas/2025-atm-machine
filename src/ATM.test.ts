@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { beforeEach, describe, it } from "node:test";
-import { ATM, type CountableMoney } from "./ATM.ts";
+import { ATM } from "./ATM.ts";
+import type { CountableMoney } from "./CountableMoney.js";
 
 describe("ATM", () => {
   it("anotherx", () => {
