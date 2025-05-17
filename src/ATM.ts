@@ -29,10 +29,16 @@ export class ATM {
         ];
       }
       if (quantity === 2) {
-        return [...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2)];
+        return [
+          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
+        ];
       }
       if (quantity === 1) {
-        return [...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1)];
+        return [
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
+        ];
       }
     }
     if (this.money.length === 2) {
