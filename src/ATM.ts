@@ -22,11 +22,15 @@ export class ATM {
 
   withdraw(quantity: number): Array<CountableMoney> {
     if (this.money.length === 2) {
-      const foo = quantity % this.money[0].denominator;
-      const baz = quantity - foo;
+      const restNextMoney = quantity % this.money[0].denominator;
+      const currentMoneyAmount = quantity - restNextMoney;
       return [
-        ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(baz),
-        ...new ATM([{ denominator: this.money[1].denominator, type: "coin" }]).withdraw(foo),
+        ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(
+          currentMoneyAmount,
+        ),
+        ...new ATM([{ denominator: this.money[1].denominator, type: "coin" }]).withdraw(
+          restNextMoney,
+        ),
       ];
     }
 
