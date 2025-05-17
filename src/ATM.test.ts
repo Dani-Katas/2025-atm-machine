@@ -72,7 +72,7 @@ describe("ATM", () => {
   });
 
   it("yyyyyy", () => {
-    const atm = new ATM([{ denominator: 3, type: "coin" }]);
+    const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
     assert.throws(() => {
       atm.withdraw(0);
