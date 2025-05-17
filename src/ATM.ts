@@ -18,7 +18,7 @@ export class ATM {
     const [current, ...money] = this.money;
     const leftovers = quantity % current.value;
     const value = {
-      denominator: current.value,
+      value: current.value,
       quantity: (quantity - leftovers) / current.value,
       type: "coin",
     };
