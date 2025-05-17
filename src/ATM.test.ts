@@ -271,6 +271,33 @@ describe("ATM", () => {
     assert.deepEqual(money, [{ denominator: 1, type: "coin", quantity: 1 }] as CountableMoney[]);
   });
 
+  it("asdasdasd", () => {
+    const atm = new ATM([
+      { denominator: 5, type: "coin" },
+      { denominator: 2, type: "coin" },
+      { denominator: 1, type: "coin" },
+    ]);
+
+    const money = atm.withdraw(2);
+
+    assert.deepEqual(money, [{ denominator: 2, type: "coin", quantity: 1 }] as CountableMoney[]);
+  });
+
+  it("asdasdas", () => {
+    const atm = new ATM([
+      { denominator: 5, type: "coin" },
+      { denominator: 2, type: "coin" },
+      { denominator: 1, type: "coin" },
+    ]);
+
+    const money = atm.withdraw(3);
+
+    assert.deepEqual(money, [
+      { denominator: 2, type: "coin", quantity: 1 },
+      { denominator: 1, type: "coin", quantity: 1 },
+    ] as CountableMoney[]);
+  });
+
   it.skip("throws error if no available money", () => {
     const atm = new ATM([{ denominator: 2, type: "coin" }]);
 
