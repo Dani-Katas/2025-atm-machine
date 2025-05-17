@@ -23,10 +23,16 @@ export class ATM {
   withdraw(quantity: number): Array<CountableMoney> {
     if (this.money.length === 2) {
       if (quantity === 1) {
-        return [...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1)];
+        return [
+          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(0),
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
+        ];
       }
       if (quantity === 2) {
-        return [...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2)];
+        return [
+          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(2),
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
+        ];
       }
       if (quantity === 3) {
         return [
@@ -47,7 +53,10 @@ export class ATM {
         ];
       }
       if (quantity === 6) {
-        return [...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6)];
+        return [
+          ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6),
+          ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(0),
+        ];
       }
       if (quantity === 7) {
         return [
