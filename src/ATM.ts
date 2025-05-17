@@ -17,6 +17,14 @@ export class ATM {
   }
 
   withdraw(quantity: number): Array<CountableMoney> {
+    if (this.money.length === 0) {
+      if (quantity === 0) {
+        return [];
+      } else {
+        throw new Error("Unimplemented method ATM#withdraw");
+      }
+    }
+
     if (this.money.length > 1) {
       const [current, ...restOfMonises] = this.money;
       const restNextMoney = quantity % current.denominator;
@@ -36,21 +44,10 @@ export class ATM {
       type: "coin",
     };
 
-    if (quantity === 0) {
-      return [];
-    }
     if (quantity % currentMoneyAmount !== 0) {
       return new ATM([]).withdraw(quantity);
     }
 
-    if (this.money.length === 0) {
-      if (quantity === 0) {
-        return [];
-      } else {
-        throw new Error("Unimplemented method ATM#withdraw");
-      }
-    }
-
-    return [value];
+    return [value, ...new ATM([]).withdraw(restNextMoney)];
   }
 }
