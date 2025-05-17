@@ -23,23 +23,29 @@ export class ATM {
   withdraw(quantity: number): Array<CountableMoney> {
     if (this.money.length === 2) {
       if (quantity === 7) {
+        const foo = quantity % this.money[0].denominator;
+        const baz = quantity - foo;
         if (this.money[0].denominator === 4) {
           return [
-            ...new ATM([{ denominator: 4, type: "coin" }]).withdraw(4),
+            ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(baz),
             ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(3),
           ];
         }
 
         if (this.money[0].denominator === 3) {
+          const foo = quantity % this.money[0].denominator;
+          const baz = quantity - foo;
           return [
-            ...new ATM([{ denominator: 3, type: "coin" }]).withdraw(6),
+            ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(baz),
             ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
           ];
         }
 
         if (this.money[0].denominator === 2) {
+          const foo = quantity % this.money[0].denominator;
+          const baz = quantity - foo;
           return [
-            ...new ATM([{ denominator: 2, type: "coin" }]).withdraw(6),
+            ...new ATM([{ denominator: this.money[0].denominator, type: "coin" }]).withdraw(baz),
             ...new ATM([{ denominator: 1, type: "coin" }]).withdraw(1),
           ];
         }
